@@ -8,9 +8,11 @@ const noticiasSchema = new mongoose.Schema({
     imagenUrl:{
         type: String
     },
-    // contenido:{
-    //     type:String
-    // }
+    enlace:{
+        type:String,
+        required: true,
+        unique: true
+    }
 });
 const Noticia = mongoose.model("Noticia", noticiasSchema);
 export default Noticia;

@@ -22,21 +22,24 @@ const newsWorker = new Worker("scraping-task", async job =>{
             const imgUrl = imgEl ? imgEl.getAttribute("src"):null;
 
             //extraccion del texto
-            const textEl = el.querySelector("h2.s__tl");
-            const textClear = textEl ? textEl.innerText.trim():null;
+            const linkEl = el.querySelector("h2.s__tl a");;
+            const textClear = linkEl ? linkEl.innerText.trim():null;
+            const linkUrl = linkEl ? linkEl.getAttribute("href"):null;
 
             return{
                 imagen : imgUrl,
                 titulo : textClear,
+                enlace : linkUrl,
             };
 
         }));
         console.log(`intentando guardar ${articleList.length} articulos `)
 
-        for(const item of articleList){
+       for(const item of articleList){
             const nuevoRegistro = new Noticia({
                 titulo:item.titulo,
-                imagenUrl:item.imagen
+                imagenUrl:item.imagen,
+                enlace: item.enlace
             });
 
             await nuevoRegistro.save();

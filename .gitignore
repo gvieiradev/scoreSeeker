@@ -1,0 +1,12 @@
+# Dependencias de Node
+/node_modules
+/Backend/node_modules
+
+# Archivos de logs
+npm-debug.log*
+.eslintcache
+
+# Entorno local y compilaciones
+/dist
+/build
+.env

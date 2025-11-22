@@ -8,7 +8,13 @@ const scrapeNewsController = async(req , res) =>{
             //verifica si la url es accesible
             const response = await axios.get(url, {timeout:500});
 
-            const job = await NEWS_QUEUE.add("scrape-url-job",{targetUrl:url})
+            const job = await NEWS_QUEUE.add("scrape-url-job",{targetUrl:url}, {
+                attempts: 5,
+                backoff:{
+                    type:"exponential",
+                    delay: 500
+                }});
+
             res.status(202).json({
                 mesage: "Tarea de Scrapping encolada exitosamente",
                 jobId: job.id,
